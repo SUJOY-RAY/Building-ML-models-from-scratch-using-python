@@ -1,6 +1,6 @@
 import numpy as np
 from collections import Counter
-
+import matplotlib.pyplot as plt
 class KNearestNeighboursClassifier:
 
     """ 
@@ -41,7 +41,7 @@ class KNearestNeighboursClassifier:
 
         """
         distances=[self._eucledian_distance(x,x_train) for x_train in self.X_train]
-
+        
         """
         argsort the indices in an ascending order that would
         sort the distances in ascending order.
@@ -54,9 +54,8 @@ class KNearestNeighboursClassifier:
         are the indices in sorted order
         
         self.k=2, k_indices = np.argsort(distances)[:2] would return [1,3]
-
+        
         """
-
         k_indices=np.argsort(distances)[:self.k]
 
         """
@@ -81,6 +80,8 @@ class KNearestNeighboursClassifier:
         """
 
         k_nearest_labels = [self.y_train[i] for i in k_indices]
+        # for a in k_nearest_labels:
+        #     print(a)
 
         """
         Here we perform majority voting to determine the predicted class based 
