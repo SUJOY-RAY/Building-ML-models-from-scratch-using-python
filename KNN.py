@@ -80,8 +80,7 @@ class KNearestNeighboursClassifier:
         """
 
         k_nearest_labels = [self.y_train[i] for i in k_indices]
-        # for a in k_nearest_labels:
-        #     print(a)
+        
 
         """
         Here we perform majority voting to determine the predicted class based 
