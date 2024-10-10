@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="fa5baa7b-a258-4306-a670-b127a84b15dc" name="Changes" comment="" />
+    <list default="true" id="fa5baa7b-a258-4306-a670-b127a84b15dc" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/Building-ML-models-from-scratch-using-python.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Building-ML-models-from-scratch-using-python.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Decision Tree Classifier.py" beforeDir="false" afterPath="$PROJECT_DIR$/Decision Tree Classifier.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Random Forest.py" beforeDir="false" afterPath="$PROJECT_DIR$/Random Forest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -10,9 +19,9 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2lutlwifjmH9BAPKhrs5lrnzzdY" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -24,7 +33,8 @@
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "git-widget-placeholder": "main",
-    "last_opened_file_path": "/home/arclight/Coding/Machine Learning in python/Building-ML-models-from-scratch-using-python"
+    "last_opened_file_path": "/home/arclight/Coding/Machine Learning in python/Building-ML-models-from-scratch-using-python",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -44,5 +54,16 @@
       <updated>1726041944630</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>

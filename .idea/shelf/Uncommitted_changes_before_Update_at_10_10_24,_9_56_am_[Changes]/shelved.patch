@@ -1,0 +1,181 @@
+Index: Random Forest.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import numpy as np\nfrom collections import Counter\n\n\n# Helper functions\n\n\"\"\" This function computes the entropy, a measure of impurity or uncertainty in a set of labels \"\"\"\ndef entropy(y):\n    hist=np.bincount(y)    \n    \"\"\" This counts occurences if each class in the label array y \"\"\"\n    \n    ps=hist/len(y)\n    \"\"\" This computes the probabilities of each class \"\"\"\n    \n    return -np.sum([p*np.log2(p) for p in ps if ps>0])\n    \"\"\" This is the entropy formula \"\"\"\n\n\n\"\"\" This function splits the dataset into two parts based on threshold value of a specific feature \"\"\"\ndef split_dataset(X,y,feature_index, threshold):\n    left_mask=X[:,feature_index]<=threshold\n    right_mask=X[:,feature_index]>threshold\n    \"\"\" left_mask and right_mask are boolean arrays indicating which samples go to the left or right split \"\"\"\n\n    return X[left_mask],X[right_mask],y[left_mask],y[right_mask]\n    \"\"\" This function returns the split datsets: features X and labels Y \"\"\" \n\n\ndef information_gain(y,y_left,y_right):\n    weight_left=len(y_left)/len(y)\n    weight_right=len(y_right)/len(y)\n    \"\"\" weight_left, weight_right are proportions of samples in the left and right splits \"\"\"\n\n    return entropy(y)-(weight_left*entropy(y_left)+weight_right*entropy(y_right))\n    \"\"\" This formula substracts the weighted average of entropies in the left and right splits from the original entropy of the data \"\"\"\n\n\n# Decision Tree Class\nclass DecisionTree:\n    def __init__(self,max_depth=None, min_samples_split=2):\n        self.max_depth=max_depth\n        self.min_samples_split=min_samples_split\n        self.tree=None\n\n    \"\"\"\n    max_depth: To control overfitting\n    min_samples_split: The minimum number of samples required to split a node\n    self.tree: Stores the constructed tree as a dictionary. \n    \n    \"\"\"\n\n    def _best_split(self,X,y):\n        best_gain=-1\n        best_split=None\n        n_samples, n_features=X.shape\n\n        \"\"\"\n        best_gain: Stores the best information gain found\n        best_split: Stores the best split configuration.\n        n_samples, n_features: These are the number of sampels  and features in X\n\n        \"\"\"\n        \n        for feature_index in range(n_features):\n            thresholds=np.unique(X[:feature_index])\n            for threshold in thresholds:\n                X_left, X_right, y_left, y_right =split_dataset(X, y, feature_index,threshold)\n                if len(y_left)>0 and len(y_right)>0:\n                    gain=information_gain(y,y_left,y_right)\n                    \"\"\"\n                    If both sides of the split have samples, calculate the information gain.\n                    \"\"\"\n\n                    if gain>best_gain:\n                        best_gain=gain\n                        best_split={\n                            'feature_index':feature_index,\n                            'threshold':threshold,\n                            'X_left':X_left,\n                            'X_right':X_right,\n                            'y_left':y_left,\n                            'y_right':y_right\n                        }\n                    \"\"\"\n                    If the current split gives a better gain than previous splits, update best_gain and store the split information in best_split.\n                    \"\"\"\n        return best_split\n    \n    \n    \n    \n    def \n                    \n\n\n\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Random Forest.py b/Random Forest.py
+--- a/Random Forest.py	(revision 32677132a9e5505d6ffa34b905f81a3365121bb5)
++++ b/Random Forest.py	(date 1728534376085)
+@@ -86,10 +86,9 @@
+                     """
+         return best_split
+     
+-    
+-    
+-    
+-    def 
++
++    def _build_tree(self,X,y,depth=0):
++        n_samples,n_features=X.shape
+                     
+ 
+ 
+Index: .idea/Building-ML-models-from-scratch-using-python.iml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<module type=\"PYTHON_MODULE\" version=\"4\">\n  <component name=\"NewModuleRootManager\">\n    <content url=\"file://$MODULE_DIR$\">\n      <excludeFolder url=\"file://$MODULE_DIR$/.venv\" />\n    </content>\n    <orderEntry type=\"inheritedJdk\" />\n    <orderEntry type=\"sourceFolder\" forTests=\"false\" />\n  </component>\n  <component name=\"PyDocumentationSettings\">\n    <option name=\"format\" value=\"PLAIN\" />\n    <option name=\"myDocStringFormat\" value=\"Plain\" />\n  </component>\n</module>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/Building-ML-models-from-scratch-using-python.iml b/.idea/Building-ML-models-from-scratch-using-python.iml
+--- a/.idea/Building-ML-models-from-scratch-using-python.iml	(revision 32677132a9e5505d6ffa34b905f81a3365121bb5)
++++ b/.idea/Building-ML-models-from-scratch-using-python.iml	(date 1728534376546)
+@@ -4,7 +4,7 @@
+     <content url="file://$MODULE_DIR$">
+       <excludeFolder url="file://$MODULE_DIR$/.venv" />
+     </content>
+-    <orderEntry type="inheritedJdk" />
++    <orderEntry type="jdk" jdkName="Python 3.10 (MapView)" jdkType="Python SDK" />
+     <orderEntry type="sourceFolder" forTests="false" />
+   </component>
+   <component name="PyDocumentationSettings">
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"ProjectRootManager\" version=\"2\" project-jdk-name=\"Python 3.10 (Building-ML-models-from-scratch-using-python)\" project-jdk-type=\"Python SDK\" />\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 32677132a9e5505d6ffa34b905f81a3365121bb5)
++++ b/.idea/misc.xml	(date 1728534376549)
+@@ -1,4 +1,7 @@
+ <?xml version="1.0" encoding="UTF-8"?>
+ <project version="4">
+-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (Building-ML-models-from-scratch-using-python)" project-jdk-type="Python SDK" />
++  <component name="Black">
++    <option name="sdkName" value="Python 3.10 (MapView)" />
++  </component>
++  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (MapView)" project-jdk-type="Python SDK" />
+ </project>
+\ No newline at end of file
+Index: Decision Tree Classifier.py
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import numpy as np\n\nclass DecisionTreeClassifier:\n    def __init__(self, max_depth=5):\n        self.max_depth = max_depth\n        self.tree = None\n\n        \"\"\"\n        self.max_depth: controls the maximum depth of the tree \n                        so that it does'nt grow indefinitely.\n        \n        self.tree: initially it is stored as None, later it \n                   stores the trained decision tree.\n\n        \"\"\"\n\n    def fit(self,X,y):\n        self.tree=self.__build_tree(X,y)\n\n        \"\"\"\n        fit: used to train the model on the input data X and y.\n             It calls the _build_tree to build the decision tree \n             recursively and the result is stored in self.tree.\n\n        \"\"\"   \n    \n\n    def predict(self,X):\n        return np.array([self._predict_single(row) for row in X])\n\n    \"\"\"\n    predict: This method takes a set of input features X and predicts \n             the labels for each row or instance. \n             It uses list comprehension to iterate over each row \n             (data sample) in X and calls _predict_single on each row \n             to get its prediction.\n             These values are returned as a numpy array. \n\n    \"\"\"\n\n    def _build_tree(self, X, y, depth=0):\n        n_samples,n_features=X.shape\n        unique_labels=np.unique(y)\n\n        if len(unique_labels)==1 or depth==self.max_depth or n_samples<self.min_samples_split:\n            return {'label':self._most_common_label(y)}\n    \"\"\"\n    build_tree: A recursive method that builds the decision tree.\n    X.shape: gives the number of samples.\n    \n    \n    \"\"\"\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Decision Tree Classifier.py b/Decision Tree Classifier.py
+--- a/Decision Tree Classifier.py	(revision 32677132a9e5505d6ffa34b905f81a3365121bb5)
++++ b/Decision Tree Classifier.py	(date 1728020269876)
+@@ -1,14 +1,18 @@
+ import numpy as np
+ 
+ class DecisionTreeClassifier:
+-    def __init__(self, max_depth=5):
++    def __init__(self, max_depth=5, min_samples_split=2):
+         self.max_depth = max_depth
++        self.min_samples_split=min_samples_split
+         self.tree = None
+ 
+         """
+         self.max_depth: controls the maximum depth of the tree 
+                         so that it does'nt grow indefinitely.
+-        
++
++        self.min_samples_split: The minimum number of samples 
++                                required to split a node
++
+         self.tree: initially it is stored as None, later it 
+                    stores the trained decision tree.
+ 
+@@ -44,9 +48,80 @@
+ 
+         if len(unique_labels)==1 or depth==self.max_depth or n_samples<self.min_samples_split:
+             return {'label':self._most_common_label(y)}
+-    """
+-    build_tree: A recursive method that builds the decision tree.
+-    X.shape: gives the number of samples.
+-    
+-    
+-    """
++        """
++        build_tree: A recursive method that builds the decision tree.
++        X.shape: gives the number of samples.
++        np.unique(y): returns the unique class labels in y(target variable)
++        # the stopping conditions are checked :
++            if all samples have same label (len(unique_labels))==1
++            if maximum depth has been reached (depth==self.max_depth)
++            if the number if samples in the current node is smaller than min_samples_split       
++                # if any of these conditions are met, the node becomes a leaf, and we return 
++                the most common label using _most_common_label.
++
++        """
++
++        best_feature,best_threshold=self._best_split(X,y)
++        if best_feature is None:
++            return {'label':self._most_common_label(y)}
++        
++        """
++        if no stopping conditions are met, we find the best feature and 
++        threshold to split the data using _best_split. 
++        If  no split is found, (i.e. best_feature is None),the
++        node becomes a leaf and returns the most common label.  
++
++        """
++
++        left_indices=X[:,best_feature]<=best_threshold
++        right_indices=~left_indices
++        
++        """
++        left_indices: This selects the rows where the best feature is 
++                      less than or equal to the threshold.
++        right_indices: This selects the remaining rows(those not in left_indices).
++
++        """
++
++        left_subtree=self._build_tree(X[left_indices],y[left_indices],depth+1)
++        right_subtree=self._build_tree(X[right_indices],y[right_indices],depth+1)
++
++        """
++        Recursively build the left and right subtrees using the newly created subsets
++        of data. The depth is incremented by 1 for each recursive call.
++
++        """
++
++        return{
++            'feature':best_feature,
++            'threshold':best_threshold,
++            'left':left_subtree,
++            'right':right_subtree
++        }
++
++        """
++        feature: The feature used to split the data.
++        threshold: The threshold value that splits the data.
++        left: The left subtree.
++        right: The right subtree.
++
++        """
++    def _best_split(self,X,y):
++        n_samples,n_features=X.shape
++        best_gini=1.0
++        best_feature=None
++        best_threshold=None
++        for feature in range(n_features):
++            thresholds=np.unique(X[:,feature])
++            for threshold in thresholds:
++                gini=self._calculate_gini(X[:,feature],y,threshold)
++                if gini< best_gini:
++                    best_gini=gini
++                    best_feature=feature
++                    best_threshold=threshold
++        return best_feature, best_threshold
++
++
++
++
++
