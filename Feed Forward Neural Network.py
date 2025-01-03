@@ -108,3 +108,34 @@ fnn.train(X_train, Y_train, epochs=1000, learning_rate=0.1)
 predictions = fnn.predict(X_train)
 print("Predictions:", predictions)
 
+# Preprocessing the Iris dataset
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import OneHotEncoder
+from sklearn.metrics import accuracy_score
+
+# Load the Iris dataset
+iris = load_iris()
+X = iris.data
+Y = iris.target.reshape(-1, 1)
+
+# One-hot encode the target labels
+encoder = OneHotEncoder(sparse_output=False)
+Y_encoded = encoder.fit_transform(Y)
+
+# Split the data into training and testing sets
+X_train, X_test, Y_train, Y_test = train_test_split(X, Y_encoded, test_size=0.2, random_state=42)
+
+# Initialize and train the feedforward neural network
+fnn_iris = FeedforwardNeuralNetwork(input_size=4, hidden_size=8, output_size=3)
+fnn_iris.train(X_train, Y_train, epochs=1000, learning_rate=0.1)
+
+# Predict on the test set
+Y_pred = fnn_iris.predict(X_test)
+
+# Convert one-hot encoded test labels back to class labels
+Y_test_classes = np.argmax(Y_test, axis=1)
+
+# Calculate accuracy
+accuracy = accuracy_score(Y_test_classes, Y_pred)
+accuracy
